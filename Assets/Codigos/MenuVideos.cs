@@ -1,7 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Video;
-using UnityEngine.UI;
-using TMPro;   // <- si quieres usar TextMeshPro
+using TMPro;
 
 public class MenuVideos : MonoBehaviour
 {
@@ -12,11 +11,12 @@ public class MenuVideos : MonoBehaviour
         public string descripcion;     // texto asociado al video
     }
 
-    public VideoInfo[] videos;          // array de videos con descripci�n
+    public VideoInfo[] videos;          // array de videos con descripción
     public VideoPlayer videoPlayer;     // referencia al componente VideoPlayer
     public TMP_Text textoDescripcion;   // referencia al texto en la UI
 
     private int indiceActual = 0;
+    private bool enPausa = false;       // 👉 para saber si el video está pausado
 
     void Start()
     {
@@ -41,6 +41,7 @@ public class MenuVideos : MonoBehaviour
         Debug.Log("Reproduciendo: " + ruta);
 
         videoPlayer.Play();
+        enPausa = false; // cuando cambia de video siempre se reproduce
 
         // actualizar el texto
         if (textoDescripcion != null)
@@ -48,4 +49,22 @@ public class MenuVideos : MonoBehaviour
             textoDescripcion.text = videos[index].descripcion;
         }
     }
+
+    // 👉 Este método lo asignas al botón Pause/Reanudar
+    public void PausarReanudar()
+    {
+        if (videoPlayer.isPlaying)
+        {
+            videoPlayer.Pause();
+            enPausa = true;
+            Debug.Log("Video en pausa");
+        }
+        else if (enPausa)
+        {
+            videoPlayer.Play();
+            enPausa = false;
+            Debug.Log("Video reanudado");
+        }
+    }
 }
+
