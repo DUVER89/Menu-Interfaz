@@ -8,6 +8,8 @@ public class MenuVideos : MonoBehaviour
     public class VideoInfo
     {
         public string nombreArchivo;   // nombre del archivo en StreamingAssets
+
+        [TextArea(2, 5)]               // 👉 ahora la descripción se edita en varias líneas en el Inspector
         public string descripcion;     // texto asociado al video
     }
 
@@ -67,4 +69,5 @@ public class MenuVideos : MonoBehaviour
         }
     }
 }
+
 
